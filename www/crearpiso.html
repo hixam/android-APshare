@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Apartment Share  page">
+    <meta name="author" content="DSA">
+
+    <title>Apartment Share</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="css/navbar-fixed-top.css" rel="stylesheet">
+    <link href="css/apartmentshare.css" rel="stylesheet">
+    <style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map { height: 100%; }
+	  	   #map_campus {
+		width: 450px;
+		height: 350px;
+		background-color: #CCC;
+	  }
+	  #secondmap {
+		width: 500px;
+		height: 400px;
+		background-color: #CCC;
+	  }
+		  #map_wrapper {
+		height: 400px;
+		}
+
+		#map_canvas {
+			width: 100%;
+			height: 100%;
+		}
+
+		#travel_selector {
+			margin-top: 10px;
+			margin-left: 10px;
+		}
+    </style>
+		<meta name="viewport" content="width=device-width">
+	<link href='http://fonts.googleapis.com/css?family=Doppio+One' rel='stylesheet' type='text/css'>
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand">Crea tu piso en ApartmentShare</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+        
+            <ul class="nav navbar-nav navbar-left">
+                <li><a id="Quiensomos" href="quiensomoslogueado.html">Acerca de nosotros</a></li>
+                 <li><a id="indexusuario" href="indexusuario.html">Volver al índice</a></li>
+            </ul>
+          
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a id="aProfile" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a id="aGoToProfile" href="micuenta.html">Mi Cuenta</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a id="aMisPisos" href="apartmentshare.html">Mis Pisos</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a id="aMessages" href="mensajes.html">Mensajes</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a id="aCloseSession">Cerrar Sesión</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+<br><br><br>
+     <center>
+      <a title="ApartmentShare"><img src="imagenes/apartmentshare.png" alt="ApartmentShare" /></a>
+    </center>
+
+    <div class="container">
+  <div style="padding:10px">
+
+  <hr>
+  
+  <div class="jumbotron text-left">
+    <h2>Crea el piso a partir del cual realizar el anuncio</h2>
+
+    <br>
+	<div class="form-group">
+	<table>
+	
+	<tr>
+		<td width="50%">
+			<label for="campusid">Seleccione el Campus UPC más cercano a tu piso</label>
+		</td>
+		<td width="50%">
+		<label for="myaddress">Dirección completa del piso</label><font size=1><i> (Ejemplo: Avinguda diagonal, 20, Barcelona)</i></font>
+		</td>
+	</tr>
+	<tr>
+		<td width="50%">
+			<select style='width:90%'  name="campusid" class="form-control" id='campusid' onchange="getCampusByID(this.value)"></select><br>
+		</td>
+		<td width="50%">
+			<input style='width:90%' class='form-control' name ='myaddress' id='myaddress' type="text"><br>
+		</td>
+	</tr>
+	<tr>
+		<td width="50%">
+		 <div id="map_campus"></div>
+		</td>
+		<td width="50%">
+			<address> </address>
+		</td>
+	</tr>
+	</table>
+		  <br>
+    </div>
+	
+	<table>
+	<tr>
+		<td  width="25%">    
+			<div class="form-group ">
+			<label for="fumadores">¿Se admiten fumadores?</label>
+			<select style="width:90% !important" name="fumadores" class="form-control" id="smoker">
+						  <option selected="selected" value="0">Indiferente</option>
+						  <option value="1">Si</option>
+						  <option value="2">No</option>                   
+			</select>
+			</div>
+		</td>
+		<td width="25%">
+			<div class="form-group ">
+			<label for="mascotas">¿Se admiten mascotas?</label>
+			<select style="width:90% !important" name="mascotas" class="form-control" id="pets">
+							  <option selected="selected" value="0">Indiferente</option>
+							  <option value="1">Si</option>
+							  <option value="2">No</option>                   
+			</select>
+			</div>
+		</td width="25%">
+		
+		<td>
+		 <div class="form-group">
+				<label for="amueblado">¿El piso está amueblado?</label>
+				<select style="width:90% !important" name="amueblado" class="form-control" id="furnished">
+							  <option value="1">Si</option>
+							  <option value="2">No</option>                   
+				</select>
+		   </div>
+		</td>
+		
+		<td width="25%">
+		    <div class="form-group">
+        <label for="numrooms">Número de habitaciones</label>
+		<select style="width:90% !important" name="numrooms" class="form-control" id="numrooms">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>   
+                      <option value="5">5</option>                    
+        </select>
+		</div>
+		
+		</td>
+</tr>
+<tr>
+	<td width="25%">
+	    <div class="form-group">
+        <label for="bano">Numero de cuartos de baño del piso</label>
+        <select style="width:90% !important" name="bano" class="form-control" id="numbathrooms">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>   
+                      <option value="5">5</option>                    
+        </select>
+    </div>
+	</td>
+
+	<td width="25%">
+	     <div class="form-group">
+       <label for="sexo">Restricción de sexo</label>
+       <select style="width:90% !important" name="sexo" class="form-control" id="girlorboy" required="">
+					<option selected="selected" value="0">Indiferente</option> 
+                      <option value="2">Sólo se admiten hombres</option>
+                      <option value="1">Sólo se admiten mujeres</option>
+                                    
+      </select>
+		</div>
+	</td>
+
+	<td width="25%">
+	   <div class="form-group">
+        <label for="planta">Piso situado en una planta</label>
+        <select style="width:90% !important" name="estancia" class="form-control" id="plantnum">
+                      <option value="0">Bajos/Entresuelo/Ninguna</option>
+                      <option value="1">1ª planta</option>
+                      <option value="2">2ª planta</option>
+                      <option value="3">3ª planta</option>   
+                      <option value="4">4ª planta</option>
+                      <option value="5">5ª planta</option>   
+                      <option value="6">6ª planta</option>
+                      <option value="7">7ª planta</option>   
+                      <option value="8">8ª planta</option>
+                      <option value="9">9ª planta</option>
+                      <option value="10">10ª planta</option> 
+                                         
+        </select>
+    </div>
+	</td>
+
+	<td width="25%">
+		    <div class="form-group">
+        <label for="metros">Metros cuadrados del piso</label>
+        <input  style="width:90% !important"  name="metros" class="form-control" id="sqm" type="text">
+    </div>
+	</td>
+</tr>
+<tr>
+
+	<td width="25%">
+	    <div class="form-group">
+        <label for="ascensor">¿Tiene acceso a un ascensor?</label>
+        <select style="width:90% !important" name="ascensor" class="form-control" id="elevator">
+                      <option value="1">Si</option>
+                      <option value="0">No</option>                   
+        </select>
+		</div> 
+	</td>
+	<td width="25%">
+		   <div class="form-group">
+        <label for="internet">¿Tiene acceso a Internet?</label>
+        <select style="width:90% !important" name="internet" class="form-control" id="internet">
+                      <option value="1">Si</option>
+                      <option value="0">No</option>                   
+        </select>
+		</div>
+	</td>
+	<td width="25%">
+		   <div class="form-group">
+        <label for="numpartner">Personas que compartirán piso</label>
+        <select style="width:90% !important" name="numpartner" class="form-control" id="numpartner">
+                      <option value="1">1 persona</option>
+                      <option value="2">2 personas</option>
+                      <option value="3">3 personas</option>   
+                      <option value="4">4 personas</option>
+                      <option value="5">5 o más personas</option>   
+                      
+                                       
+        </select>
+		</div>
+	</td>
+	<td width="25%">
+		 <div class="form-group">
+        <label for="estancia">Tiempo de estancia mínima</label>
+        <select style="width:90% !important" name="estancia" class="form-control" id="estancia">
+                      <option value="1">1 mes</option>
+                      <option value="2">2 meses</option>
+                      <option value="3">3 meses</option>
+                      <option value="4">4 meses</option>   
+                      <option value="5">5 meses</option>
+                      <option value="6">6 meses</option>   
+                      <option value="7">7 meses</option>
+                      <option value="8">8 meses</option>   
+                      <option value="9">9 meses</option>
+                      <option value="10">10 meses</option>
+                      <option value="11">11 meses</option> 
+                      <option value="12">1 año o más</option>                       
+        </select>
+		</div>
+	</td>
+</tr>
+<tr>
+	<td width="25%">
+		     <div class="form-group">
+        <label for="fianza">Indique la fianza que se debe depositar (en €)</label>
+        <input style="width:90% !important" name="fianza" class="form-control" id="fianza" type="text">
+		</div>
+
+	</td>
+</tr>
+</table>
+
+		<table class="fixed" align="center" >
+		<tr>
+
+			<td width="33%">
+			<h3>Subir imágenes</h3>
+			</td>
+			<td td width="33%">
+			
+			</td>
+			<td td width="33%">
+			</td>
+		</tr>
+		 
+			<form id="form1" runat="server">
+		<tr  >
+			<td width="33%">
+				<input type="file" id="file" name="file" align="center">
+			</td>
+			<td width="33%">
+				<input type="file" id="file2" name="file2" align="center">
+			</td>
+			<td width="33%">
+				<input type="file" id="file3" name="file3" align="center">
+			</td>
+		</tr>
+		<tr >
+			<td width="33%">
+				<img id="blah" src="#" alt="Previsualización" HEIGHT="300" WIDTH="300"/>
+			</td>
+			<td width="33%">
+				<img id="blah2" src="#" alt="Previsualización" HEIGHT="300" WIDTH="300"/>
+			</td>
+			<td width="33%">
+				<img id="blah3" src="#" alt="Previsualización" HEIGHT="300" WIDTH="300"/>
+			</td>
+		</tr>
+		<tr >
+			<td width="33%" align="center">
+				Imagen 1
+			</td>
+			<td align="center" width="33%">
+			Imagen 2
+				
+			</td>
+			<td width="33%" align="center">
+				Imagen 3
+			</td>
+		</tr>
+			</form>
+		</table>
+		<br>
+
+    <div class="form-group">
+        <label for="description">Descripción</label>
+        <textarea name="description" class="form-control" id="description" rows="8"></textarea>
+    </div>   
+    <br>
+
+
+          <br><br>
+          <a class="btn btn-large btn-danger" href="apartmentshare.html" style="float:right;" type="submit">Cancelar</a>
+          
+        <form id="formCrearpiso">
+          <button id="buttonCrearpiso" type="submit" class="btn btn-default center-block">Crear piso</button>
+        </form>
+    
+  </div>
+  <div id="result"></div>
+
+      
+
+</div>
+    
+     
+
+
+
+  </div>
+
+
+  
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		  <!-- Google maps Javascript plugins -->
+	  <script src="https://maps.googleapis.com/maps/api/js"></script>	
+	        <!-- Include all compiled plugins (below), or include individual files as needed -->
+	 <script src="http://jashkenas.github.com/coffee-script/extras/coffee-script.js"></script>
+	       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <!-- Latest compiled and minified JavaScript 
+      <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>-->
+	  	  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script> 
+    <script src="js/api.js"></script>
+  <script src="js/crearpiso.js"></script>
+  </body>
+</html>

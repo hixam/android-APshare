@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <link href='imagenes/favicon.ico' rel='shortcut icon' type='image/png'> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Apartment Share  page">
+    <meta name="author" content="DSA">
+
+    <title>Apartment Share</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="css/navbar-fixed-top.css" rel="stylesheet">
+    <link href="css/apartmentshare.css" rel="stylesheet">
+
+    <STYLE TYPE="text/css">
+    body{
+      background: url(5.gif) no-repeat center;
+      }
+	  	  #secondmap {
+		width: 500px;
+		height: 400px;
+		background-color: #CCC;
+	  }
+		  #map_wrapper {
+		height: 400px;
+		}
+
+		#map_canvas {
+			width: 100%;
+			height: 100%;
+		}
+
+		#travel_selector {
+			margin-top: 10px;
+			margin-left: 10px;
+		}
+    </STYLE>
+   
+  </head>
+
+  <body>
+    
+  <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand"> </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-left">
+                <li><a id="Quiensomos" href="quiensomos.html">Acerca de nosotros</a></li>
+                <li><a id="index" href="index.html">Volver al índice</a></li>
+            </ul>
+        
+          <ul class="nav navbar-nav navbar-right">
+                   
+            <a class="btn btn-success" href="login.html" type="submit">Entra en ApartmentShare</a>
+
+            <a class="btn btn-warning" href="registro.html" type="submit">Regístrate</a>
+    
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+    <div class="jumbotron text-center col-sm-12 col-sm-offset-1 col-md-10 col-md-offset-1">
+
+    	<div id="stings">
+    		<div class="row">
+    		<!--/.<button id="buttonUpdate" type="button" class="btn btn-default center-block">Update</button> -->
+		    
+    		</div>
+	    	<div class="row row-margin">
+	    		<div class="col-sm-8 col-center-block">
+	    			<div id="stings-list" class="list-group">
+	    				<a class="list-group-item">
+	    					<p class="list-group-item-text">Si ves esto no se ha listado la habitación</p>
+							<img src="" id="foto" alt="Dos niñas de la mano">
+	    					<h6 class="list-group-item-heading" align="right">Cabecera</h6>	
+	    				</a>
+	    			</div>
+	    		</div>
+
+				
+							<div id="map_wrapper">
+				<div id="map_canvas" class="mapping"></div>
+			</div>
+
+        <br><br><br>
+		
+				<div id="travel_selector">
+				<label for="text">Escoger el modo de viajar:</label>
+				<select id="travelType" onchange="calcRoute(this.value)">
+					<option selected value='WALKING'>Selecciona un método de viajar</option>
+					<option value="WALKING">Caminando</option>
+					<option value="BICY  <br>CLING">Bicicleta</option>
+					<option value="D  <br>  <br>IVING">Coche</option>
+					<option value="TRANSIT">Transporte público</option>
+				</select></p>
+			</div>
+		
+		
+        <div class="row">
+		<a class="btn btn-large btn-primary" href="imagenesroom2.html" style="float:center;" type="submit">Ver mas imagenes</a>	
+		    <br>  <br>
+        <button id="buttonRegresar" type="button" class="btn btn-danger center-block">Atrás</button>
+        </div>
+    	</div>
+
+		
+        <br>
+
+
+    </div> <!-- /container -->
+    </div>
+
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	  <!-- Google maps Javascript plugins -->
+	  <script src="https://maps.googleapis.com/maps/api/js"></script>	
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+	  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	 <script src="http://jashkenas.github.com/coffee-script/extras/coffee-script.js"></script>
+    <script src="js/api.js"></script>
+	<script src="js/descriptionroom2.js"></script>
+	</body>
+</html>
